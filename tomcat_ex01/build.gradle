@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.5'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'com.bmuschko.tomcat'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//sourceSets {
+//	main {
+//		resources {
+//			srcDirs = ["src/main/resources/templates"]
+//			includes = ["**/*.twig"]
+//		}
+//	}
+//}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def tomcatVersion = '8.0.42'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+		   
+	compile 'com.sparkjava:spark-core:2.7.2'
+	// https://mvnrepository.com/artifact/com.sparkjava/spark-template-jtwig
+	compile group: 'com.sparkjava', name: 'spark-template-jtwig', version: '2.7.1'
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+	
+	// https://mvnrepository.com/artifact/org.sql2o/sql2o
+	compile group: 'org.sql2o', name: 'sql2o', version: '1.5.4'
+}
+
+tomcat {
+	contextPath = '/'
+}
